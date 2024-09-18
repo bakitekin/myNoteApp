@@ -14,4 +14,5 @@ export const AppColors = {
   lightGray: '#cccccc',
   gray: '#95a5a6',
   darkGray: '#637982',
+  sky: '#708871',
 };

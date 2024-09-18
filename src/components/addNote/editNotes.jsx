@@ -1,42 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, SafeAreaView, TextInput, Text, Alert} from 'react-native';
 import Button from '../../components/uı/button';
 import AddNoteStyle from '../../styles/addNoteStyle';
 import EditIcons from '../../components/addNote/editIcons';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {AppColors} from '../../theme/appColors';
-import MyNotes from '../myNotes';
-import {MYNOTES} from '../../utils/routes';
 
 const AddNote = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigation = useNavigation();
-  const route = useRoute(); // route kullanarak parametreleri alıyoruz
-
-  useEffect(() => {
-    // Eğer düzenlenecek bir not varsa, parametrelerden al ve formu doldur
-    if (route.params?.noteToEdit) {
-      const {title, description} = route.params.noteToEdit;
-      setTitle(title);
-      setDescription(description);
-    }
-  }, [route.params?.noteToEdit]);
 
   const handleSaveNote = () => {
     if (title === '' || description === '') {
       Alert.alert('Hata', 'Bütün alanları doldurunuz.');
       return;
     }
-
     const newNote = {
-      id: route.params?.noteToEdit?.id || Math.random().toString(), // Eğer düzenliyorsak eski id'yi kullan
+      id: Math.random().toString(), // unique id
       title,
       description,
       date: new Date().toLocaleString(),
     };
 
-    navigation.navigate(MYNOTES, {newNote});
+    // Navigate back to 'MyNotes' screen with the new note
+    navigation.navigate('MyNotes', {newNote});
   };
 
   return (
@@ -73,7 +61,6 @@ const AddNote = () => {
   );
 };
 
-// define your styles
 const styles = {
   title: {
     paddingVertical: 20,

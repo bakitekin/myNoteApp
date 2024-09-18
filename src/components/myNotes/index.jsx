@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 
 // create a component
 const MyNotes = () => {
+  console.table(route);
   return (
     <View style={styles.container}>
       <Text>MyNotes</Text>

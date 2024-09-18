@@ -1,6 +1,5 @@
-export const MYNOTES = 'My Notes';
-export const ADDNOTES = 'Add Notes';
+// utils/routes.js
+export const MYNOTES = 'MyNotes';
+export const ADDNOTES = 'AddNote';
 export const NOTDETAİL = 'NOT DETAİL';
-export const STATEEXAMPLE = 'State Example';
-export const USEEFFECTEXAMPLE = 'UseEffect Example';
-export const SECONDSCREEN = 'Second Screen';
+export const CART = 'Cart';

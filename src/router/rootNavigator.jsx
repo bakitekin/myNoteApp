@@ -1,21 +1,26 @@
-// In App.js in a new project
-
-import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ADDNOTES, MYNOTES} from '../utils/routes';
+import {MYNOTES, ADDNOTES, CART} from '../utils/routes';
 import MyNotes from '../screens/myNotes';
 import AddNote from '../screens/addNote';
-import ScreenStyle from '../styles/screenStyle';
+import Cart from '../components/cart/cart';
+import {AppColors} from '../theme/appColors';
 
 const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
   return (
     <Stack.Navigator
-      style={ScreenStyle.container}
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name={MYNOTES} component={MyNotes} />
+      screenOptions={{
+        headerBackTitle: 'Geri',
+        headerTintColor: AppColors.black,
+      }}>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={MYNOTES}
+        component={MyNotes}
+      />
       <Stack.Screen name={ADDNOTES} component={AddNote} />
+      <Stack.Screen name={CART} component={Cart} />
     </Stack.Navigator>
   );
 }
