@@ -7,111 +7,81 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {AppColors} from '../../theme/appColors';
 import {MYNOTES} from '../../utils/routes';
 
-const AddNote = () => {
+const EditNote = () => {
+  const [note, setNote] = useState({});
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [lastModifiedDate, setLastModifiedDate] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
-
-  const [titleStyle, setTitleStyle] = useState({});
-  const [descriptionStyle, setDescriptionStyle] = useState({});
-
   const navigation = useNavigation();
   const route = useRoute();
 
   useEffect(() => {
     if (route.params?.noteToEdit) {
       const {
+        id,
         title: editTitle,
         description: editDescription,
         createdAt,
         updatedAt,
       } = route.params.noteToEdit;
+      setNote({
+        id,
+        title: editTitle,
+        description: editDescription,
+        createdAt,
+        updatedAt,
+      });
       setTitle(editTitle);
       setDescription(editDescription);
       setCreatedDate(createdAt);
       setLastModifiedDate(updatedAt || createdAt);
-      setIsEditing(true);
     }
   }, [route.params?.noteToEdit]);
 
   const handleSaveNote = () => {
-    if (!title.trim() || !description.trim()) {
+    if (title.trim() === '' || description.trim() === '') {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
 
     const currentDate = new Date().toLocaleString();
-    const newNote = {
-      id: route.params?.noteToEdit?.id || Date.now().toString(),
+    const updatedNote = {
+      ...note,
       title: title.trim(),
       description: description.trim(),
-      createdAt: route.params?.noteToEdit?.createdAt || currentDate,
-      updatedAt: isEditing ? currentDate : '',
+      updatedAt: currentDate,
     };
 
-    navigation.navigate(MYNOTES, {newNote});
-  };
-
-  const handleStyleChange = (styleType, field) => {
-    const styleFunction =
-      field === 'title' ? setTitleStyle : setDescriptionStyle;
-
-    const newStyle = {
-      fontWeight: styleType === 'bold' ? 'bold' : undefined,
-      fontStyle: styleType === 'italic' ? 'italic' : undefined,
-      textDecorationLine: styleType === 'underline' ? 'underline' : undefined,
-      textAlign:
-        styleType === 'align-left'
-          ? 'left'
-          : styleType === 'align-right'
-          ? 'right'
-          : styleType === 'align-center'
-          ? 'center'
-          : undefined,
-    };
-
-    styleFunction(prevStyle => ({
-      ...prevStyle,
-      ...newStyle,
-    }));
+    navigation.navigate(MYNOTES, {updatedNote});
   };
 
   return (
     <SafeAreaView style={AddNoteStyle.addNotes}>
       <View style={AddNoteStyle.icons}>
-        <EditButton
-          isEditing={isEditing}
-          onStyleChange={styleType => handleStyleChange(styleType, 'title')}
-        />
+        <EditButton isEditing={true} />
       </View>
       <View style={AddNoteStyle.input}>
         <TextInput
-          placeholder={isEditing ? 'Edit title' : 'Add title'}
+          placeholder="Edit title"
           value={title}
           onChangeText={setTitle}
-          style={[styles.title, titleStyle]}
+          style={styles.title}
         />
         <TextInput
-          placeholder={isEditing ? 'Edit description' : 'Add description'}
+          placeholder="Edit description"
           value={description}
           onChangeText={setDescription}
-          style={[styles.description, descriptionStyle]}
-          multiline
+          style={styles.description}
+          multiline={true}
         />
-        {isEditing && (
-          <View style={styles.dateContainer}>
-            <Text style={styles.date}>Last Modified: {lastModifiedDate}</Text>
-            <Text style={styles.date}>Created: {createdDate}</Text>
-          </View>
-        )}
+        <View style={styles.dateContainer}>
+          <Text style={styles.date}>Last Modified: {lastModifiedDate}</Text>
+          <Text style={styles.date}>Created: {createdDate}</Text>
+        </View>
       </View>
       <View style={AddNoteStyle.button}>
-        <Button
-          onPress={handleSaveNote}
-          title={isEditing ? 'Update Note' : 'Save Note'}
-        />
+        <Button onPress={handleSaveNote} title="Update Note" />
       </View>
     </SafeAreaView>
   );
@@ -131,7 +101,10 @@ const styles = {
     padding: 10,
     backgroundColor: AppColors.lightGray,
     shadowColor: AppColors.darkGray,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -163,4 +136,4 @@ const styles = {
   },
 };
 
-export default AddNote;
+export default EditNote;

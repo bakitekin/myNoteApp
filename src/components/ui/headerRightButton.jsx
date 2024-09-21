@@ -1,5 +1,5 @@
 //import liraries
-import {More, Paperclip, Share} from 'iconsax-react-native'; // More yerine More2 kullanılacak
+import {More, Paperclip, Share} from 'iconsax-react-native';
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {AppColors} from '../../theme/appColors';

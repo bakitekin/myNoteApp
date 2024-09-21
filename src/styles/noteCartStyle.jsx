@@ -8,6 +8,7 @@ const NoteCardStyle = StyleSheet.create({
     backgroundColor: AppColors.light,
     padding: 10,
     margin: 5,
+    gap: 5,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -32,7 +33,7 @@ const NoteCardStyle = StyleSheet.create({
     borderRadius: 100,
   },
   noteContainer: {
-    flex: 9,
+    flex: 12,
   },
   title: {
     fontSize: 18,
@@ -50,9 +51,10 @@ const NoteCardStyle = StyleSheet.create({
   },
   description: {fontSize: 14, color: AppColors.gray, marginVertical: 5},
   date: {fontSize: 12, color: AppColors.sky, marginVertical: 5},
-  trashButtonContainer: {
+  actionButtonContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
 });

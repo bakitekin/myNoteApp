@@ -19,7 +19,7 @@ const Cart = () => {
         setNotes(prevNotes => [...prevNotes, newNote]);
       }
     }
-  }, [newNote]);
+  }, [newNote, notes]);
 
   const handleDeleteNote = id => {
     Alert.alert('Notu Sil', 'Bu notu silmek istediğinizden emin misiniz?', [
@@ -47,7 +47,7 @@ const Cart = () => {
       }) => (
         <TouchableOpacity style={NoteCardStyle.container}>
           <View style={NoteCardStyle.bubleContainer}>
-            <View style={NoteCardStyle.buble}></View>
+            <View style={NoteCardStyle.buble} />
           </View>
           <View style={NoteCardStyle.noteContainer}>
             <Text style={NoteCardStyle.title}>{title}</Text>
@@ -60,12 +60,12 @@ const Cart = () => {
             </Text>
           </View>
           <View style={NoteCardStyle.trashButtonContainer}>
+            <TouchableOpacity onPress={() => handleDeleteNote(id)}>
+              <Trash size="24" color={AppColors.error} variant="Bold" />
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => handleEditNote({id, title, description})}>
               <Edit2 size="24" color={AppColors.success} variant="Bold" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDeleteNote(id)}>
-              <Trash size="24" color={AppColors.error} variant="Bold" />
             </TouchableOpacity>
           </View>
         </TouchableOpacity>

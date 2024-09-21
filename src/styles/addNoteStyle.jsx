@@ -7,7 +7,7 @@ const AddNoteStyle = StyleSheet.create({
     backgroundColor: AppColors.white,
     padding: 10,
   },
-  ıcons: {
+  icons: {
     flex: 1,
     margin: 5,
     paddingHorizontal: 5,
@@ -18,11 +18,11 @@ const AddNoteStyle = StyleSheet.create({
     borderRadius: 5,
   },
   input: {
-    flex: 8,
+    flex: 12,
     padding: 10,
     paddingHorizontal: 5,
   },
-  botton: {
+  button: {
     flex: 1,
   },
 });
